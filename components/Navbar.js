@@ -40,7 +40,7 @@ export default class Navbar{
             </li>
         </ul>
 
-        <div class="navbar_dropdown__container" id="nav_dropdown">
+        <div class="navbar_dropdown__container hide" id="nav_dropdown">
             <ul>
                 <li class="navbar_dropdown__button">
                     <a href="">Home</a>
