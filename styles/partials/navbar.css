@@ -1,0 +1,115 @@
+#navbar{
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--white);
+
+    display: grid;
+    align-items: center;
+
+    padding: 2vh;
+}
+
+ul{
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style-type: none;
+}
+.navbar_list{
+    display: flex;
+    column-gap: 2vh;
+}
+.navbar_list__item, .searchBar_button, .searchBar_input, .navbar_dropdown__button{
+    font-size: 1.3rem;
+}
+.navbar_list__item > a{
+    text-decoration: none !important;
+    color: var(--black);
+}
+.navbar_list__item > a:hover{
+    color: var(--orange);
+}
+
+.navbar_icon__btn{
+    font-size: 2.2rem;
+}
+
+@media (max-width: 768px){
+    #navbar{
+        grid-template-columns: auto auto 1fr auto;
+        column-gap: 0.9vh;
+    }
+    #navbar > img{
+        max-width: 5vh !important;
+    }
+    .navbar_icon__btn:nth-child(2), .nav_text__button{
+        display: none;
+    }
+    .navbar_icon__btn:nth-child(3){
+        display: block;
+    }
+}
+@media (min-width: 768px){
+    #navbar{
+        grid-template-columns: auto auto 1fr auto;
+        column-gap: 3vh;
+    }
+    #navbar > img{
+        max-width: 8vh !important;
+    }
+    .navbar_icon__btn:nth-child(2), .nav_text__button{
+        display: block;
+    }
+    .navbar_icon__btn:nth-child(3){
+        display: none;
+    }
+    .navbar_dropdown__container{
+        display: none;
+    }
+}
+
+
+.searchBar_container{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border: 1px solid var(--orange-faded);
+}
+.searchBar_container:focus-within{
+    border: 1px solid var(--orange);
+}
+.searchBar_input{
+    height: 4ch;
+    text-overflow: ellipsis;
+    padding: 3%;
+}
+.searchBar_button, .searchBar_input{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.navbar_dropdown__container{
+    position: absolute;
+    right: 2vh;
+    top: 8vh;
+    padding: 4vh;
+    background-color: var(--orange);
+    color: var(--white);
+}
+.navbar_dropdown__container > ul{
+    width: 100%;
+}
+.navbar_dropdown__button:hover{
+    >a{
+        color: var(--black);
+    }
+}
+.navbar_dropdown__button > a{
+    text-wrap: balance;
+    text-decoration: none;
+    color: var(--white);
+}
+.navbar_dropdown__button:not(:last-child){
+    margin-bottom: 5vh;
+}
