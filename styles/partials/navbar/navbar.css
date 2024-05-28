@@ -1,0 +1,35 @@
+@import url("./buttons.css");
+@import url("./dropdown.css");
+@import url("./searchBar.css");
+
+#navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--white);
+
+    display: grid;
+    align-items: center;
+
+    padding: 2vh;
+}
+
+@media (max-width: 768px){
+    #navbar{
+        grid-template-columns: auto auto 1fr auto;
+        column-gap: 0.9vh;
+    }
+    #navbar > img{
+        max-width: 5vh !important;
+    }
+}
+@media (min-width: 768px){
+    #navbar{
+        grid-template-columns: auto auto 1fr auto;
+        column-gap: 3vh;
+    }
+    #navbar > img{
+        max-width: 8vh !important;
+    }
+}

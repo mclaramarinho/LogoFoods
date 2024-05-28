@@ -1,0 +1,23 @@
+ul{
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style-type: none;
+}
+.navbar_list{
+    display: flex;
+    column-gap: 2vh;
+}
+.navbar_list__item, .searchBar_button, .searchBar_input, .navbar_dropdown__button{
+    font-size: 1.3rem;
+}
+.navbar_list__item > a{
+    text-decoration: none !important;
+    color: var(--black);
+}
+.navbar_list__item > a:hover{
+    color: var(--orange);
+}
+
+.navbar_icon__btn{
+    font-size: 2.2rem;
+}
