@@ -1,0 +1,14 @@
+.footer_col_1 p, .footer_link__list li{
+    font-size: 1.3rem;
+}
+.footer_link__list li{
+    margin-bottom: 1ch;
+}
+.footer_link__list li > a{
+    text-decoration: none;
+    color: var(--black);
+    font-style: italic;
+}
+.footer_link__list li > a:hover{
+    color: var(--orange);
+}

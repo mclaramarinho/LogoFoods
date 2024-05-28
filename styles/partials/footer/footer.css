@@ -1,0 +1,43 @@
+@import url("./headers.css");
+@import url("./linkList.css");
+@import url("./socialMediaIcons.css");
+
+footer{
+    background-color: var(--white);
+    display: grid;
+    margin-top: 20vh;
+    padding: 2%;
+}
+
+.footer_main_content{
+    display: grid;
+}
+.footer_col{
+    max-width: 45ch;
+}
+
+
+@media (max-width: 768px){
+    footer{
+        grid-template-columns: 1fr auto;
+    }
+    .footer_main_content{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 5%;
+    }
+    .footer_col_1{
+        grid-column: 1 / 3;
+    }
+    .footer_col_1 p{
+        display: none;
+    }
+}
+@media (min-width: 768px){
+    footer{
+        grid-template-columns: 1fr 1fr;
+    }
+    .footer_main_content{
+        grid-template-columns: auto auto auto;
+    }
+}
+
