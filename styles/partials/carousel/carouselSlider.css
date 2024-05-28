@@ -1,0 +1,12 @@
+.carousel_slider{
+    display: flex;
+    overflow-x: scroll;
+    column-gap: 3vw;
+    width: 100%;
+}
+.carousel_slider::-webkit-scrollbar{
+    display: none;
+}
+.carousel_slider{
+    scroll-behavior: smooth;
+}

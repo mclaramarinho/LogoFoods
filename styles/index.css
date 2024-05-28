@@ -1,7 +1,7 @@
 @import url("./partials/utils.css");
 @import url("./partials/navbar.css");
 @import url("./partials/sectionHeader.css");
-@import url("./partials/carousel.css");
+@import url("./partials/carousel/carousel.css");
 :root{
     --yellow: #FFCD29;
     --orange: #F24822;

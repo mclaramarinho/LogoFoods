@@ -1,0 +1,35 @@
+.carousel_item{
+    display: grid;
+    width: 100%;
+    text-decoration: none;
+    color: var(--black);
+}
+
+.carousel_item > div > h3{
+    font-size: 2.2rem;
+}
+
+.item_desc{
+    width: 28ch;
+    text-wrap: wrap;
+}
+
+.item_price{
+    font-weight: 200;
+    font-size: 1.7rem;
+}
+
+.item_img{
+    max-width: 200px;
+}
+@media (max-width: 768px) {
+    .carousel_item{
+        column-gap: 2%;
+    }
+}
+@media (min-width: 768px) {
+    .carousel_item{
+        grid-template-columns: 1fr 2fr;
+        column-gap: 2%;
+    }
+}

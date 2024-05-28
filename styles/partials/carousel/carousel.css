@@ -1,0 +1,28 @@
+@import url("./carouselItem.css");
+@import url("./categoryCarouselItem.css");
+@import url("./carouselSlider.css");
+
+.carousel_container{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+/* CAROUSEL BUTTONS */
+.carousel_next__button{
+    justify-self: end;
+}
+.carousel_button{
+    font-size: 4rem;
+    height: 100%;
+    align-content: center;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
