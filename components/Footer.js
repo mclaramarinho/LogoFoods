@@ -17,35 +17,33 @@ export default class Footer{
                     <h5>INSTITUCIONAL</h5>
 
                     <ul class="footer_link__list">
-                        ${companyData.institutionalLinks.map(link => {
-                            return `
-                                <li>
-                                    <a href="${link.url}">${link.text}</a>
-                                </li>
-                            `;
-                        })}
+                        ${this.#getListOfLinks(companyData.institutionalLinks)}
                     </ul>
                 </div>
                 <div class="footer_col_3 footer_col">
                     <h5>CONTATO</h5>
 
                     <ul class="footer_link__list">
-                        ${companyData.contactLinks.map(link => {
-                            return `
-                                <li>
-                                    <a href="${link.url}">${link.text}</a>
-                                </li>
-                            `;
-                        })}
+                        ${this.#getListOfLinks(companyData.contactLinks)}
                     </ul>
                 </div>
             </div>
 
             <div class="footer_col_4">
-                ${companyData.socialMedia.map(sm => {
-                    return `<a href="${sm.url}"><i class="bi bi-${sm.icon}"></i></a>`
-                })}
+                ${companyData.socialMedia.map(sm => `<a href="${sm.url}"><i class="bi bi-${sm.icon}"></i></a>`).join("")}
             </div>
         `;
+    }
+
+    #getListOfLinks(urlsArr){
+        let html = "";
+        urlsArr.map(link => {
+            html += `
+                <li>
+                    <a href="${link.url}">${link.text}</a>
+                </li>
+            `;
+        })
+        return html;
     }
 }
