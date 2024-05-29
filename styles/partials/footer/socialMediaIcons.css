@@ -2,12 +2,22 @@
 .footer_col_4{
     display: flex;
     justify-content: end;
-    column-gap: 2%;
     font-size: 1.5rem;
     > a{
         color: var(--orange);
         :hover{
             color: var(--black);
         }
+    }
+}
+
+@media (min-width: 768px){
+    .footer_col_4{
+        column-gap: 2%;
+    }
+}
+@media (max-width: 768px){
+    .footer_col_4{
+        column-gap: 10%;
     }
 }
