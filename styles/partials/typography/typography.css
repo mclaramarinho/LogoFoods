@@ -1,0 +1,6 @@
+@import url("./fontSizes.css");
+
+:root{
+    font-size: 10px;
+    font-family: Inter, sans-serif;
+}
