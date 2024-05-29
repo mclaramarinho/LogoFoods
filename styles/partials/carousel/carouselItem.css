@@ -5,13 +5,10 @@
     color: var(--black);
 }
 
-.carousel_item > div > h3{
-    font-size: 2.2rem;
-}
-
 .item_desc{
     width: 28ch;
     text-wrap: wrap;
+    font-size: 1.2rem;
 }
 
 .item_price{

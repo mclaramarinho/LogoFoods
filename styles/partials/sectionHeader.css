@@ -5,6 +5,6 @@
 
 .section_header__container > h2 {
     color: var(--black);
-    font-size: 2.8rem;
     font-weight: bolder;
+    margin:0;
 }

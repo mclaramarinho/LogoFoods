@@ -1,4 +1,5 @@
 @import url("./partials/utils.css");
+@import url("./partials/typography/typography.css");
 @import url("./partials/navbar/navbar.css");
 @import url("./partials/sectionHeader.css");
 @import url("./partials/carousel/carousel.css");
@@ -10,9 +11,6 @@
     --orange-faded: #f248223e;
     --white: #F8F8F8;
     --black: #090909;
-
-    font-family: Inter, sans-serif;
-    font-size: 10px;
 }
 html, body{
     background-color: var(--yellow) !important;
@@ -39,3 +37,5 @@ main{
         max-width: 80vw;
     }
 }
+
+

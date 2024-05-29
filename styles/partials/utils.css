@@ -4,3 +4,7 @@
 .cursor-pointer{
     cursor: pointer;
 }
+
+.mb-5{
+    margin-bottom: 5vh;
+}
