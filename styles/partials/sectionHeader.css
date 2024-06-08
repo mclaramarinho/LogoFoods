@@ -1,10 +1,11 @@
 .section_header__container{
     background-color: var(--white);
     padding: 1vh 2vh 1vh 2vh; 
+    border-radius: 2vh;
 }
 
 .section_header__container > h2 {
-    color: var(--black);
+    color: var(--orange);
     font-weight: bolder;
     margin:0;
 }
