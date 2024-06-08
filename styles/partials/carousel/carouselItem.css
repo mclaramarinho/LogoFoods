@@ -1,8 +1,17 @@
 .carousel_item{
+    background-color: var(--white);
     display: grid;
     width: 100%;
     text-decoration: none;
     color: var(--black);
+    border: 1px solid var(--white);
+    padding: 1%;
+    padding-bottom: 0;
+    border-radius: 1vh;
+
+    .item_img{
+        max-width: 200px;
+    }
 }
 
 .item_desc{
@@ -12,13 +21,15 @@
 }
 
 .item_price{
-    font-weight: 200;
+    font-weight: 400;
     font-size: 1.7rem;
 }
 
-.item_img{
-    max-width: 200px;
+.carousel_item > div > .item_price {
+    color: var(--orange) !important;
+    font-weight: bold;
 }
+
 @media (max-width: 768px) {
     .carousel_item{
         column-gap: 2%;
