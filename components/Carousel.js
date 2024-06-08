@@ -58,7 +58,8 @@ export default class Carousel {
     }
     #getInnerHtmlCategoryCarousel(product){
         return `
-                <h3>${product.name}</h3>
+            <img class="category_img" src="${product.imgSrc}" />
+            <div class="category_title">${product.name}</div>
         `;
     }
 
