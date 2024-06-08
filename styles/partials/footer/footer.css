@@ -3,7 +3,7 @@
 @import url("./socialMediaIcons.css");
 
 footer{
-    background-color: var(--white);
+    background-color: var(--faded-yellow);
     display: grid;
     margin-top: 20vh;
     padding: 2%;

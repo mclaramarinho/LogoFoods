@@ -5,11 +5,10 @@ export default class Footer{
         this.footerElement.innerHTML = `
             <div class="footer_main_content">
                 <div class="footer_col_1 footer_col">
-                    <h2>${companyData.companyName}</h2>
+                    <img src="./assets/LogoFoodsLogo.png"/>
 
-                    <p>${companyData.address}</p>
-                    <p><b>CNPJ:</b> ${companyData.cnpj}</p>
                     <p><b>Razão Social:</b> ${companyData.razaoSocial}</p>
+                    <p><b>CNPJ:</b> ${companyData.cnpj}</p>
                     
                 </div>
 
