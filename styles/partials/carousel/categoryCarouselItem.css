@@ -1,20 +1,30 @@
 
 .category_carousel__item{
-    background-color: var(--orange);
-    color: var(--white);
-
     font-size: 2rem;
     font-weight: bold;
-
+    
     text-decoration: none;
     
-    text-align: center;
-    display: grid;
-    align-items: center;
+    display: block;
+    position: relative;
     
-    min-width:150px;
-    max-width: 150px;
-    aspect-ratio: 1;
-    
+}
+.category_img{
     border-radius: 100vh;
+    width:200px !important;
+    width: 200px !important;
+    opacity: 0.5;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+
+.category_title{
+    color: var(--white);
+    font-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-shadow: 1px 1px var(--black);
 }
