@@ -2,15 +2,23 @@
 @import url("./dropdown.css");
 @import url("./searchBar.css");
 
-#navbar{
+nav{
     position: fixed;
+    
     top: 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     background-color: var(--white);
 
+    
+}
+
+#navbar{
+    position: relative;
     display: grid;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
 
     padding: 2vh;
 }
@@ -26,10 +34,10 @@
 }
 @media (min-width: 768px){
     #navbar{
-        grid-template-columns: auto auto 1fr auto;
+        grid-template-columns: auto auto 1fr 1fr;
         column-gap: 3vh;
     }
     #navbar > img{
-        max-width: 8vh !important;
+        max-width: 12vh !important;
     }
 }

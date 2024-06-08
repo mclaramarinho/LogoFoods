@@ -2,13 +2,18 @@ ul{
     margin: 0 !important;
     padding: 0 !important;
     list-style-type: none;
+    
 }
 .navbar_list{
     display: flex;
     column-gap: 2vh;
 }
+.navbar_list:not(.navbar_textbuttons__list){
+    justify-content: flex-end;
+}
+
 .navbar_list__item, .searchBar_button, .searchBar_input, .navbar_dropdown__button{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 .navbar_list__item > a{
     text-decoration: none !important;
@@ -20,4 +25,19 @@ ul{
 
 .navbar_icon__btn{
     font-size: 2.2rem;
+}
+
+.avatar_btn{
+    
+    text-wrap: nowrap;
+    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 5%;
+    
+    >i{
+        font-size: 2.5rem;
+        color: var(--orange);
+    }
+
 }
