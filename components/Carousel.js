@@ -10,20 +10,22 @@ export default class Carousel {
     slider = document.createElement("div");
     nextBtn = document.createElement("i");
 
-    constructor(carouselItemsContent = [], additionalClasses=[], isCategoryCarousel=false){
+    constructor(carouselItemsContent = [], additionalClasses=[], isCategoryCarousel=false, isHighlightedCard=false){
         this.#createBaseElements(additionalClasses);
 
         carouselItemsContent.map(el => {
-            const a = document.createElement("a");
-            a.href = el.href;
+                const a = document.createElement("a");
+                a.href = el.href;
+    
+                isCategoryCarousel ? a.classList.add("category_carousel__item")
+                        : isHighlightedCard ? a.classList.add("carousel_hightlight__item") 
+                        : a.classList.add("carousel_item");
+    
+                a.innerHTML = isCategoryCarousel ? this.#getInnerHtmlCategoryCarousel(el)
+                                : this.#getInnerHtmlForNormalCarousel(el);
+    
+                this.slider.append(a);
 
-            isCategoryCarousel ? a.classList.add("category_carousel__item")
-                    : a.classList.add("carousel_item");
-
-            a.innerHTML = isCategoryCarousel ? el.name 
-                            : this.#getInnerHtmlForNormalCarousel(el);
-
-            this.slider.append(a);
         })
         this.#mountElements();
         createCarouselEventListeners(); 
@@ -50,9 +52,9 @@ export default class Carousel {
         return `
             <img src="${product.imgSrc}" class="item_img">
             <div>
-                <p class="item_price">R$${product.prodPrice}</p>
                 <h3>${product.prodTitle}</h3>
                 <p class="item_desc">${product.prodDesc}</p>
+                <p class="item_price">R$${product.prodPrice}</p>
             </div>
         `;
     }
