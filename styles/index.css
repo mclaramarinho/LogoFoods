@@ -7,13 +7,15 @@
 
 :root{
     --yellow: #FFCD29;
+    --faded-yellow: #F0C24D;
     --orange: #F24822;
     --orange-faded: #f248223e;
     --white: #F8F8F8;
     --black: #090909;
 }
 html, body{
-    background-color: var(--yellow) !important;
+    background: rgb(255,205,41);
+    background: linear-gradient(190deg, rgba(255,205,41,1) 0%, rgba(242,72,34,1) 100%);
 }
 body{
     margin: 0;
