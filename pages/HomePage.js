@@ -14,9 +14,9 @@ new Section([superDescontosHeader]);
 const carousel = new Carousel(products, ["mb-5"]);
 
 // SECTION 2
-const superDescontosHeader2 = new SectionHeader("SUPER DESCONTOS").getHtmlElement();
+const superDescontosHeader2 = new SectionHeader("EM ALTA").getHtmlElement();
 new Section([superDescontosHeader2]);
-const carousel2 = new Carousel(products, ["mb-5"]);
+const carousel2 = new Carousel(products, ["mb-5"], false, true);
 
 // SECTION 3
 const categoriesHeader = new SectionHeader("Pesquisar por categoria").getHtmlElement();
