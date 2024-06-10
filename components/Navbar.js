@@ -15,7 +15,7 @@ export default class Navbar{
         },
         {
             text: "Catálogo",
-            href: "/catalog",
+            href: "?catalog",
             id: "catalog"
         }
     ];
