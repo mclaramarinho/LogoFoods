@@ -17,6 +17,8 @@
     --orange-faded: #f248223e;
     --white: #F8F8F8;
     --black: #090909;
+    --red: #C91B16;
+    --super-light-yellow: #fff3eb2f;
 }
 html, body{
     background: rgb(255,205,41);
