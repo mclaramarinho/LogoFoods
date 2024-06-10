@@ -38,6 +38,6 @@ nav{
         column-gap: 3vh;
     }
     #navbar > img{
-        max-width: 12vh !important;
+        max-width: 8vh !important;
     }
 }
