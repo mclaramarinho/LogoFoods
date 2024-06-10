@@ -6,12 +6,7 @@
     color: var(--black);
     border: 1px solid var(--white);
     padding: 1%;
-    padding-bottom: 0;
     border-radius: 1vh;
-
-    .item_img{
-        max-width: 200px;
-    }
 }
 
 .item_desc{
@@ -34,10 +29,16 @@
     .carousel_item{
         column-gap: 2%;
     }
+    .carousel_item .item_img{
+        max-width: 100%;
+    }
 }
 @media (min-width: 768px) {
     .carousel_item{
         grid-template-columns: 1fr 2fr;
         column-gap: 2%;
+    }
+    .carousel_item .item_img{
+        max-width: 200px;
     }
 }
