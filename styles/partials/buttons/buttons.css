@@ -1,0 +1,18 @@
+@import url(./filledButton.css);
+@import url(./outlineButtons.css);
+
+.button{
+    padding: 1vh 3vw;
+    text-decoration: none;
+    font-size: 1.6rem;
+    text-wrap: nowrap;
+    border-radius: 1vh;
+    border: 0px transparent;
+    font-weight: 500;
+    box-shadow: none;
+}
+
+.button.button-sm{
+    font-size: 1.3rem !important;
+    padding: 1vh 2vw;
+}

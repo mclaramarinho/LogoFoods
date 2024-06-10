@@ -1,0 +1,7 @@
+.btn-orange:not(.outline){
+    background-color: var(--orange);
+    color: var(--white);
+}
+.btn-orange:not(.outline):hover{
+    background-color: var(--orange-faded);
+}

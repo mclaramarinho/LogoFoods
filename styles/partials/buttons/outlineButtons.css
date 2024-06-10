@@ -1,0 +1,9 @@
+.btn-orange.outline{
+    border: 1px solid var(--orange);
+    color: var(--orange);
+}
+.btn-orange.outline:hover{
+    background-color: var(--white);
+    color: var(--orange);
+    border: 1px solid var(--white);
+}
