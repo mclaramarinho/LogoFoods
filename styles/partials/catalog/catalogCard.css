@@ -1,0 +1,23 @@
+.catalog_product__card{
+    background-color: white;
+    max-width: 200px;
+    color: var(--black);
+    text-decoration: none;
+
+    padding: 2%;
+    border-radius: 2%;
+}
+
+.catalog_product__card > img{
+    max-width: 100%;    
+}
+.product_categories{
+    display: inline-flex;
+    flex-wrap: wrap;
+    column-gap: 1vw;
+}
+.product_categories > i{
+    font-size: 1.5rem;
+    color: var(--orange);
+    align-content: center;
+}
