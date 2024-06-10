@@ -1,9 +1,13 @@
 @import url("./partials/utils.css");
 @import url("./partials/typography/typography.css");
 @import url("./partials/navbar/navbar.css");
-@import url("./partials/sectionHeader.css");
+@import url("./partials/section/sectionHeader.css");
+@import url("./partials/section/startSection.css");
 @import url("./partials/carousel/carousel.css");
 @import url("./partials/footer/footer.css");
+@import url("./partials/searchFilter/searchFilter.css");
+@import url("./partials/catalog/catalog.css");
+@import url("./partials/buttons/buttons.css");
 @import url("./partials/ellipse.css");
 
 :root{
