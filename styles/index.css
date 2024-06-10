@@ -21,16 +21,16 @@
     --super-light-yellow: #fff3eb2f;
 }
 html, body{
-    background: rgb(255,205,41);
-    background: linear-gradient(190deg, rgba(255,205,41,1) 0%, rgba(242,72,34,1) 100%);
-}
-body{
+    width: 100vw;
     margin: 0;
     background: #F0C24D;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
+
 main{
     position: relative;
+    min-height: 100vh;
     top: 15vh;
     left: 50%;
     right: 50%;
