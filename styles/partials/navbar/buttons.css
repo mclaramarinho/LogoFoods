@@ -28,16 +28,12 @@ ul{
 }
 
 .avatar_btn{
-    
     text-wrap: nowrap;
     font-size: 1.4rem;
-    display: inline-flex;
-    align-items: center;
-    column-gap: 5%;
-    
     >i{
         font-size: 2.5rem;
         color: var(--orange);
+        vertical-align: sub;
     }
 
 }
