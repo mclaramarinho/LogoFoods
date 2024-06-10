@@ -37,7 +37,7 @@ export default class SearchFilter{
 
     #getOpenSearchFilterBtn(){
         return `
-            <button class="btn btn-success d-none" id="openFilter_btn">Abrir filtros</button>
+            <button class="button button-sm btn-orange d-none" id="openFilter_btn"><i class="bi bi-funnel"></i> Abrir filtros</button>
         `;
     }
     #getAsideInnerHtml(){
