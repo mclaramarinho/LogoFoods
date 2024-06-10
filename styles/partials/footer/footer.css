@@ -3,10 +3,13 @@
 @import url("./socialMediaIcons.css");
 
 footer{
-    background-color: var(--faded-yellow);
+    background-color: var(--white);
     display: grid;
     margin-top: 20vh;
     padding: 2%;
+
+    position: sticky;
+    z-index: 99999;
 }
 
 .footer_main_content{
@@ -38,6 +41,7 @@ footer{
     }
     .footer_main_content{
         grid-template-columns: auto auto auto;
+        column-gap: 5%;
     }
 }
 
