@@ -10,9 +10,11 @@ export default class Carousel {
     slider = document.createElement("div");
     nextBtn = document.createElement("i");
 
-    constructor(carouselItemsContent = [], additionalClasses=[], isCategoryCarousel=false, isHighlightedCard=false){
+    constructor(carouselItemsContent = [], additionalClasses=[], isCategoryCarousel=false, isHighlightedCard=false, idToAppend=null){
         this.#createBaseElements(additionalClasses);
-
+        if(idToAppend !== null){
+            this.main = document.getElementById(idToAppend);
+        }
         carouselItemsContent.map(el => {
                 const a = document.createElement("a");
                 a.href = el.href;
