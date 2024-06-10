@@ -2,58 +2,74 @@ export const products = [
     {
         prodTitle: "Chinchila 8",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
-        prodPrice: 90.99,
+        prodPrice: 0.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["lunch", "vegan"],
+        characteristics: ["frozen", "zero-lactose", "vegan", "meal"],
     },
     {
         prodTitle: "Chinchila 7",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["lunch", "regional"],
+        characteristics: ["frozen", "meal"],
     },
     {
         prodTitle: "Chinchila 6",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["dinner", "vegan"],
+        characteristics: ["frozen", "zero-lactose", "vegan", "meal"],
     },
     {
         prodTitle: "Chinchila 5",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["dinner", "regional"],
+        characteristics: ["frozen", "meal"],
     },
     {
         prodTitle: "Chinchila 4",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["dinner", "flex"],
+        characteristics: ["frozen", "zero-lactose", "meal"],
     },
     {
         prodTitle: "Chinchila 3",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["lunch", "flex"],
+        characteristics: ["frozen", "zero-lactose", "meal"],
     },
     {
         prodTitle: "Chinchila 2",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["snacks", "vegan"],
+        characteristics: ["frozen", "zero-lactose", "snack"],
     },
     {
         prodTitle: "Chinchila 1",
         prodDesc: "5 Marmitas de almooço regional do seu local preferido",
         prodPrice: 90.99,
         imgSrc: "./assets/spiky.jpg",
-        href: ""
+        href: "",
+        categories: ["snacks"],
+        characteristics: ["frozen", "snack"],
     },
     
 ];
