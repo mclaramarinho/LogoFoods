@@ -7,6 +7,8 @@ export default class Navbar{
         href: "/"
     }
 
+    searchBarValue = null;
+
     textButtons = [
         {
             text: "Início",
@@ -119,6 +121,7 @@ export default class Navbar{
     </div>`;
 
     constructor(){
+
         const nav = document.createElement("nav");
         nav.innerHTML = this.navHtml;
         this.body.append(nav);
@@ -140,6 +143,9 @@ export default class Navbar{
 
     
             this.shouldHighlightTextBtn()
+
+            this.setSearchBarValue();
+
         });
 
         
@@ -163,7 +169,7 @@ export default class Navbar{
     };
 
     shouldHighlightTextBtn(){
-        const urlPath = window.location.pathname;
+        const urlPath = window.location.search;
         
         this.resetBtnHighlight();
 
@@ -182,16 +188,33 @@ export default class Navbar{
     };
 
     getSearchBarElement(){
+        const params = window.location.search;
+        let navSearchBarValue = null;
+        if(params.includes("productName")){
+            navSearchBarValue = params.split("productName=")[1];
+            if(navSearchBarValue.includes("&")){
+                navSearchBarValue = navSearchBarValue.split("&")[0];
+            }
+        }
+        this.searchBarValue = navSearchBarValue;
+        console.log(this.searchBarValue);
         return `
             <form method="get">
+                <input type="hidden" name="catalog" value="" />
                 <div id="searchBar" class="searchBar_container">
-                    <input type="text" name="productName" placeholder="Pesquisar por nome" class="searchBar_input" />
+                    <input type="text" name="productName" placeholder="Pesquisar por nome" id="searchBar_input" class="searchBar_input" value="${this.searchBarValue === null ? "" : this.searchBarValue}" />
                     <button type="submit" href="" class="searchBar_button">
                         <i class="bi bi-search searchBar_button__icon"></i>
                     </button>
                 </div>
             </form>
         `;
+    }
+
+    setSearchBarValue(){
+        const searchInput = document.getElementById("searchBar_input");
+        const value = this.searchBarValue === null ? "" : this.searchBarValue;
+        searchInput.setAttribute("value", value)
     }
 
     async getTextButtonElements(){
