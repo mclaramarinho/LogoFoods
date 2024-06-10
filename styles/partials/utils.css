@@ -8,3 +8,10 @@
 .mb-5{
     margin-bottom: 5vh;
 }
+
+.w-fit{
+    width: fit-content;
+}
+.h-fit{
+    height: fit-content;
+}
