@@ -8,6 +8,9 @@
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     margin-top: 2vh;
+    padding: 5% 3%;
+    background-color: #fff3eb2f;
+    border-radius: 1vh;
 }
 
 /* CAROUSEL BUTTONS */
