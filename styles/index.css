@@ -4,6 +4,7 @@
 @import url("./partials/sectionHeader.css");
 @import url("./partials/carousel/carousel.css");
 @import url("./partials/footer/footer.css");
+@import url("./partials/ellipse.css");
 
 :root{
     --yellow: #FFCD29;
@@ -19,6 +20,7 @@ html, body{
 }
 body{
     margin: 0;
+    background: #F0C24D;
     box-sizing: border-box;
 }
 main{

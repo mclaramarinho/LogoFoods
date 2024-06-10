@@ -1,0 +1,33 @@
+#ellipse_1{
+    position: absolute;
+    top: 0%;
+    right: -1%;
+    transform: translate(2%, 0%);
+    max-width: 80vw;
+}
+#ellipse_2{
+    position: fixed;
+    rotate: -180deg;
+    bottom: 0%;
+    transform: translateY(-30%);
+    max-width: 100vw;
+}
+
+@media (max-width: 768px) {
+    #ellipse_1{
+        max-width: 80vw;
+    }
+    #ellipse_2{
+        max-width: 100vw;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #ellipse_1{
+        max-width: 50vw;
+    }
+    #ellipse_2{
+        max-width: 50vw;
+    }
+}
