@@ -17,7 +17,7 @@ export default class Carousel {
         }
         carouselItemsContent.map(el => {
                 const a = document.createElement("a");
-                a.href = el.href;
+                a.href = isCategoryCarousel ? el.href(el.tag) : el.href(el.id);
     
                 isCategoryCarousel ? a.classList.add("category_carousel__item")
                         : isHighlightedCard ? a.classList.add("carousel_hightlight__item") 

@@ -16,8 +16,8 @@ export default class Section{
                 Varius sed pharetra dictum neque massa congue</p>
 
                 <div class="start_section_btnContainer">
-                    <a href="?about" class="button btn-orange">Veja o menu</a>
-                    <a href="?catalog" class="button btn-orange outline">Sobre nós</a>
+                    <a href="?catalog" class="button btn-orange">Veja o menu</a>
+                    <a href="?about" class="button btn-orange outline">Sobre nós</a>
                 </div>
             `
         }else{
