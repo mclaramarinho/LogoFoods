@@ -15,3 +15,10 @@
 .h-fit{
     height: fit-content;
 }
+.disabled{
+    background-color: var(--super-light-yellow);
+}
+
+.bg-white{
+    background-color: var(--white);
+}

@@ -4,3 +4,9 @@
 .font-red{
     color: var(--red) !important;
 }
+.font-orange{
+    color: var(--orange) !important;
+}
+.font-black{
+    color: var(--black) !important;
+}
