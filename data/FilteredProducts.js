@@ -12,9 +12,13 @@ export default class FilteredProducts{
     params = window.location.search;
     hasFiltersApplied = false;
 
-    constructor(){
+    constructor(id=null){
         this.resetList();
-        this.updateList();
+        if(id!==null){
+            this.list = products.filter(prod => prod.id === id);
+        }else{
+            this.updateList();
+        }
         this.#setHasFiltersApplied();
     }
 
@@ -45,6 +49,8 @@ export default class FilteredProducts{
     }
 
     #getLowestAndHighestPriceAvailable(){
+
+        console.log(this.list)
         this.list.map(prod => {
             if(prod.prodPrice < this.minPrice){
                 this.minPrice = prod.prodPrice;
