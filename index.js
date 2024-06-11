@@ -3,29 +3,18 @@ import Navbar from "./components/Navbar.js";
 import SearchFilter from "./components/SearchFilter.js";
 import { footerData } from "./data/footerData.js";
 import CatalogPage from "./pages/CatalogPage.js";
+import DetailsPage from "./pages/DetailsPage.js";
 import "./pages/HomePage.js";
 import HomePage from "./pages/HomePage.js";
+import { User, users } from "./data/users.js";
+import Cart from "./localstorage/cart.js"
+import Router from "./router.js";
 
 
-const params = window.location.search;
-
-// path.length === 0 --> home
-// ?catalog --> catalog 
-// ?catalog=&category --> catalog filtered by categories
-// ?catalog=&productName --> catalog filtered by product name
-// ?catalog=&category=&productName --> catalog filtered by categories and productName
-// 
-
-
+export const cart = new Cart();
 
 new Navbar();
 
-
-if(params.length === 0){
-    new HomePage()
-}else if(params.includes("catalog")){
-    new CatalogPage();
-}
-
+new Router();
 
 new Footer(footerData);
