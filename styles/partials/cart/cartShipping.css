@@ -1,0 +1,39 @@
+.table{
+    --bs-body-bg: var(--white) !important;
+    --bs-table-color: var(--black) !important;
+    --bs-table-border-color: var(--black) !important;
+    margin-top: 2vh;
+    font-size: 1.3rem;
+}
+.calc_shipping__container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1vh;
+    height: fit-content;
+    width: fit-content;
+    align-items: start;
+}
+.calc_shipping__container > .shipping_estimate__result{
+    font-size: 1.3rem;
+}
+#cep_estimate_input, #estimate_shipping{
+    width: fit-content;
+    font-size: 1.5rem !important;
+}
+#cep_estimate_input{
+    font-size: 1.5rem;
+    padding: 0.8vh 1vw;
+}
+#estimate_shipping{
+    height: fit-content;
+    /* padding: 0.4vh 3vw !important; */
+}
+@media (max-width: 768px){
+    #estimate_shipping{
+    }
+}
+
+@media (min-width: 768px){
+    #estimate_shipping{
+    }
+}
