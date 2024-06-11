@@ -13,12 +13,14 @@ export default class Navbar{
         {
             text: "Início",
             href: "/",
-            id: "start"
+            id: "start",
+            collapse: true
         },
         {
             text: "Catálogo",
             href: "?catalog",
-            id: "catalog"
+            id: "catalog",
+            collapse: true
         }
     ];
 
@@ -28,12 +30,14 @@ export default class Navbar{
             id: "",
             extraClasses: [],
             isIconOnly: false,
-
+            collapse: false,
+            title: "Carrinho",
+            
             a: {
                 appendText: "",
                 prependText: "",
                 extraClasses: [],
-                href: "",
+                href: "?cart",
             }
         },
         {
@@ -41,12 +45,13 @@ export default class Navbar{
             id: "",
             extraClasses: [],
             isIconOnly: false,
-
+            collapse: true,
+            title: "Perfil",
             a: {
                 appendText: "Fulaninho de tal",
                 prependText: "",
                 extraClasses: ["avatar_btn"],
-                href: "",
+                href: "?profile",
             }
         },
         {
@@ -54,6 +59,8 @@ export default class Navbar{
             id: "menu_icon__button",
             extraClasses: ["cursor-pointer"],
             isIconOnly: true,
+            collapse: false,
+            title: "",
             a: {
                 prependText: "",
                 appendText: "",
@@ -63,35 +70,6 @@ export default class Navbar{
         }        
     ];
 
-    dropdownMenuButtons = [
-        {
-            extraClasses: [],
-            id: "",
-            href: "/",
-            text: "Home",
-            a: {
-                extraClasses: []
-            }
-        },
-        {
-            extraClasses: [],
-            id: "",
-            href: "catalog",
-            text: "Catálogo",
-            a: {
-                extraClasses: []
-            }
-        },
-        {
-            extraClasses: [],
-            id: "",
-            href: "",
-            text: "Perfil",
-            a: {
-                extraClasses: []
-            }
-        }
-    ]
 
     navHtml = `
     <div id="navbar">
@@ -184,7 +162,8 @@ export default class Navbar{
 
     resetBtnHighlight(){
         const textButtons = document.querySelectorAll(".nav_text__button");
-        textButtons.forEach(el => el.style.fontWeight = "regular");
+        
+        textButtons.forEach(el => {el.style.fontWeight = "regular"; el.classList.remove("font-orange")});
     };
 
     getSearchBarElement(){
@@ -197,7 +176,6 @@ export default class Navbar{
             }
         }
         this.searchBarValue = navSearchBarValue;
-        console.log(this.searchBarValue);
         return `
             <form method="get">
                 <input type="hidden" name="catalog" value="" />
@@ -267,13 +245,25 @@ export default class Navbar{
         return new Promise( res => {
             let buttonHtml = "";
 
-            this.dropdownMenuButtons.forEach(btn => {
-                buttonHtml += `
-                    <li id="${btn.id}" class="navbar_dropdown__button ${btn.extraClasses.join(" ")}">
-                        <a class="${btn.a.extraClasses.join(" ")}" href="${btn.href}">${btn.text}</a>
-                    </li>
-                `;
-            })
+            this.iconButtons.map(btn => {
+                if(btn.collapse){
+                        buttonHtml += `
+                            <li id="${btn.id}" class="navbar_dropdown__button">
+                                <a class="${btn.a.extraClasses.join(" ")}" href="${btn.a.href}">${btn.title}</a>
+                            </li>
+                        `;
+                }
+            });
+
+            this.textButtons.map(btn => {
+                if(btn.collapse){
+                    buttonHtml += `
+                        <li id="${btn.id}" class="navbar_dropdown__button">
+                            <a href="${btn.href}">${btn.text}</a>
+                        </li>
+                    `;
+                }
+            });
 
             res(buttonHtml);
         })
