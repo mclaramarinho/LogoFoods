@@ -2,12 +2,12 @@ export default class Section{
     main = document.getElementById("main");
     section = document.createElement("section");
     
-    constructor(elementsToAppend = [], isStartSection=false, id=null){
+    constructor(elementsToAppend = [], isStartSection=false, id=null, appendTo=null, attachToAnyElement=true){
         
         if(isStartSection){
             this.section.style.marginTop = "3vh";
             this.section.style.marginBottom = "10vh";
-            this.section.innerHTML = `
+            this.section.innerHTML = /*html*/`
                 <a class="first_time__button" href="?register">Primeira vez aqui?</a>
 
                 <h1 class="start_section__header">OLÁ, BEM VINDO AO <span>LogoFoods</span>!</h1>
@@ -19,14 +19,21 @@ export default class Section{
                     <a href="?catalog" class="button btn-orange">Veja o menu</a>
                     <a href="?about" class="button btn-orange outline">Sobre nós</a>
                 </div>
-            `
+            `;
         }else{
-            // this.section.classList.add("section_header__container");
             elementsToAppend.map(el => {
                 this.section.append(el);    
             })
         }
 
-        this.main.append(this.section);
+        if(attachToAnyElement){
+            if(appendTo!==null){
+                this.main = document.getElementById(appendTo);
+            }
+
+
+            this.main.append(this.section);
+        }
     }
+
 }
