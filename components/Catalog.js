@@ -18,14 +18,15 @@ export default class Catalog{
 
         this.catalogHeaderText = "Mostrando todos os produtos";
         if(filteredProds.productName !== null){
-            this.catalogHeaderText = `Mostrando produtos com o nome ${filteredProds.productName}`;
+            this.catalogHeaderText = `Mostrando produtos com o nome`;
+            this.elementToAttach.innerHTML = `<h2 class="font-black">${this.catalogHeaderText}<span class="font-red"> ${filteredProds.productName}</span></h2>`;
         }else{
             if(filteredProds.hasFiltersApplied){
                 this.catalogHeaderText = "Mostrando todos os resultados para os filtros aplicados";
             }
+            this.elementToAttach.innerHTML = `<h2 class="font-red">${this.catalogHeaderText}</h2>`;
         }
 
-        this.elementToAttach.innerHTML = `<h2 class="font-red">${this.catalogHeaderText}</h2>`;
         
         this.elementToAttach.append(this.container);
         

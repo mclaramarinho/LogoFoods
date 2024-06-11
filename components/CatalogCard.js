@@ -7,7 +7,7 @@ export default class CatalogCard{
     constructor(elementToAttach, product){
         this.container = document.getElementById(elementToAttach);
         this.product = product;
-        this.card.href = "";
+        this.card.href = product.href(product.id);
         this.card.classList.add("catalog_product__card");
 
         this.card.innerHTML = `
