@@ -32,7 +32,8 @@ export class User{
             main = true;
         }
         try{
-            this.addresses.push(new Address(cep, number, complement,  instructions, main));
+            const address= new Address(cep, number, complement,  instructions, main);
+            this.addresses.push(address);
         }catch(err){
             throw err;
         }
@@ -104,19 +105,20 @@ class PersonalInfo{
         };
 
         try{
-            const req = await fetch(url, opt);
-            if(req.status === 200){
-                const res = await req.json();
-                if(res["valid"]){
+            // const req = await fetch(url, opt);
+            // if(req.status === 200){
+            //     const res = await req.json();
+            //     if(res["valid"]){
                     return true;
-                }else{
-                    return false;
-                }
-            }else{
-                throw "Unexpected API error"
-            }
+            //     }else{
+            //         return false;
+            //     }
+            // }else{
+            //     throw "Unexpected API error"
+            // }
         }catch(err){
-            throw "Unexpected API error"
+            return false
+            // throw "Unexpected API error"
         }
         
 
@@ -125,45 +127,65 @@ class PersonalInfo{
 
 class Address{
     main = true; 
-    street = "";
-    number = "";
-    complement = "";
-    neighborhood = "";
-    city = "";
-    state = "";
-    cep = "";
-    deliveryInstructions = "";
+    number = null;
+    complement = null;
+    cep = null;
+    deliveryInstructions = null;
 
-    constructor(cep, number, complement,  instructions, main=false){
-        this.cep = cep;
-        this.#getAddressInfo().then(r => {
-            this.number = number;
-            this.complement = complement;
-            this.deliveryInstructions = instructions;
-            this.main = main;
-        })
-        
-    }
+    data = null;
 
-
-    async #getAddressInfo(){
+    async getAddressInfo(cep){
         const options = {
             method: "GET"
         };
 
-        const url = `viacep.com.br/ws/${this.cep}/json/`;
+        const url = `https://viacep.com.br/ws/${this.cep}/json/`;
 
         const req = await fetch(url, options);
 
         if(req.status === 200){
-            const res = await req.json();
-            this.street = res["logradouro"];
-            this.neighborhood = res["bairro"];
-            this.city = res["localidade"];
-            this.state = res["uf"];
+            let data = await req.json(); 
+            return data;
         }else{
             throw "Invalid CEP";
         }
+    }
+
+    constructor(cep, number, complement, instructions, main=false){
+        this.cep = cep;
+        this.number = number;
+        this.complement = complement.toUpperCase();
+        this.deliveryInstructions = instructions.toUpperCase();
+        this.main = main;
+    }
+
+
+    #setValues(data){
+        console.log(data);
+        this.data=data;
+    }
+
+
+    
+
+    async getAddressInfo(){
+        
+        const options = {
+            method: "GET"
+        };
+
+        const url = `https://viacep.com.br/ws/${this.cep}/json/`;
+
+        const req = await fetch(url, options);
+        
+        if(req.status === 200){
+            let data = await req.json(); 
+            this.data = data;
+
+        }else{
+            throw "Invalid CEP";
+        }
+                
     }
 }
 
@@ -254,4 +276,10 @@ export let users = [
     new User("CLARA", "marinho", new Date().setFullYear(2000, 11, 10), "70185974473")
 ]
 
+users[0].addAddress("51021120", 764, "ap 201", "", false);
+await users[0].addresses[0].getAddressInfo();
+
+
+users[0].addAddress("51021120", 267, "ap 301", "", false);
+await users[0].addresses[1].getAddressInfo();
 users[0].addPaymentMethod("c", "5555 0123 4567 8901", "12/32", 123, "MARIA C M BARRETO", "70185974473");
