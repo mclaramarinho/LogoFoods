@@ -1,0 +1,28 @@
+.form_container__cart{
+    display: flex;
+    /* grid-template-columns: 1fr 1fr; */
+    column-gap: 1vh;
+    flex-wrap: wrap;
+    row-gap: 2vh;
+    /* justify-content: center; */
+    height: fit-content;
+    width: fit-content;
+    align-items: start;
+}
+
+.text_input__cart, .form_button__cart{
+    width: fit-content;
+    font-size: 1.5rem !important;
+}
+
+.text_input__cart{
+    padding: 0.8vh 1vw;
+}
+
+.form_button__cart{
+    height: fit-content;
+}
+
+.table__cart{
+    font-size: 1.3rem;
+}

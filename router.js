@@ -1,7 +1,9 @@
 import CartPage from "./pages/CartPage.js";
+import CartPayment from "./pages/CartPayment.js";
 import CatalogPage from "./pages/CatalogPage.js";
 import DetailsPage from "./pages/DetailsPage.js";
 import HomePage from "./pages/HomePage.js";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage.js";
 
 export default class Router{
     constructor(){
@@ -15,7 +17,18 @@ export default class Router{
         }else if(params.includes("?notfound")){
             
         }else if(params.includes("?cart")){
-            new CartPage();
+            if(params.includes("step=")){
+                const step = parseInt(params.split("step=")[1]);
+                if(step === 1){
+                    new CartPage();
+                }else if(step === 2){
+                    new CartPayment();
+                }else if(step === 3){
+                    new OrderConfirmationPage();
+                }
+            }else{
+                new CartPage();
+            }
         }
     }
 }

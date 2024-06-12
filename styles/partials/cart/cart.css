@@ -1,8 +1,7 @@
 @import url("./cartItem.css");
 @import url("./cartShipping.css");
-
-.cart_items__container{
-    min-height: 20vh;
-    max-height: 50vh;
-    overflow-y: auto;
-}
+@import url("./cartSummary.css");
+@import url("./coupon.css");
+@import url("./cartForms.css");
+@import url("./cards.css");
+@import url("./orderConfirm.css");

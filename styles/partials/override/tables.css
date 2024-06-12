@@ -1,0 +1,7 @@
+.table{
+    --bs-body-bg: var(--white) !important;
+    --bs-table-color: var(--black) !important;
+    --bs-table-border-color: var(--black) !important;
+    margin-top: 2vh;
+    font-size: 1.3rem;
+}

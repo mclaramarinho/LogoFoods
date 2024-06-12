@@ -1,13 +1,19 @@
+import { createStorage, deleteStorage, getParsedStorage, getStorage, setStorageData } from "./localStorage.js";
+
 const STORAGE_NAME = "cart";
 
 export default class Cart{
 
-    constructor(){
-        this.#createCartLocalStorage();
+    constructor(reset=false){
+        if(reset){
+            deleteStorage(STORAGE_NAME);
+        }else{
+            createStorage(STORAGE_NAME, []); 
+        }
     }
 
     updateCart(prodId, amount){
-        const prevData = this.getParsedCartData();
+        const prevData = getParsedStorage(STORAGE_NAME);
 
         console.log(prevData)
         const existsInCart = prevData.find(({ id }) => id === prodId);
@@ -30,29 +36,15 @@ export default class Cart{
         
         }
 
-
-        this.#setCartLocalStorageData(prevData);
+        setStorageData(STORAGE_NAME, prevData);
     }
-    
-    #createCartLocalStorage(){
-        const exists = this.#getCartLocalStorageData();
-        if(exists===null){
-            window.localStorage.setItem(STORAGE_NAME, JSON.stringify([]));
+
+    getCart(){
+        try{
+            return getParsedStorage(STORAGE_NAME);
+        }catch(err){
+            return []
         }
     }
-
-    #getCartLocalStorageData(){
-        return window.localStorage.getItem(STORAGE_NAME);
-    }
-
-    getParsedCartData(){
-        return JSON.parse(window.localStorage.getItem(STORAGE_NAME));
-    }
-
-    #setCartLocalStorageData(data){
-        window.localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
-    }
-
-
 }
 

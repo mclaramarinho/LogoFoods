@@ -1,0 +1,41 @@
+.existing_cards__container{
+    display: flex;
+    column-gap: 2vh;
+    row-gap: 2vh;
+    max-height: 20vh;
+    overflow-y: scroll;
+}
+
+@media (max-width: 768px){
+    .existing_card__item{
+        max-width: 150px;
+    }
+    .existing_cards__container{
+        max-height: 15vh;
+        overflow-y: scroll;
+    }
+}
+@media (min-width: 768px){
+    .existing_card__item{
+        max-width: 200px;
+    }
+    .existing_cards__container{
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }
+}
+.existing_card__item:not(.card-lg){
+    max-width: 150px;
+}
+.existing_card__item.card-lg{
+    max-width: 200px;
+}
+.existing_card__item{
+    padding: 2%;
+    background-color: var(--orange-faded);
+    border-radius: 1vh;
+}
+
+.selected_card{
+    border: 2px solid var(--orange);
+}

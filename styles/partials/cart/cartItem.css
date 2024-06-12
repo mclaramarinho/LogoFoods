@@ -1,3 +1,9 @@
+.cart_items__container{
+    min-height: 20vh;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
 .cart_item{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -11,8 +17,6 @@
     height: 100%;
     object-fit: cover;
 }
-
-
 
 .cart_item__info > .title{
     font-weight: bold;
@@ -45,8 +49,8 @@
     font-size: 2rem;
 
     >i{
-        background-color: var(--orange);
-        color: white;
+        background-color: var(--super-light-yellow);
+        color: var(--orange);
         border-radius: 2px;
     }
 }

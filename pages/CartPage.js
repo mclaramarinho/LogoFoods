@@ -1,19 +1,27 @@
 import { products } from "../data/products.js";
+import { coupons } from "../data/coupons.js";
 import {cart} from "../index.js"
+import { users, User } from "../data/users.js";
 import SectionHeader from "../components/SectionHeader.js";
+import Order from "../localstorage/order.js";
+import Section from "../components/Section.js";
 export default class CartPage{
     main = document.getElementById("main");
     container = document.createElement("div");
 
-    cartItems = cart.getParsedCartData();
+    cartItems = cart.getCart();
     cartSummary = {
         subtotal: 0,
         total: 0
     }
 
-    products = []
+    couponApplied = {
+        code: "",
+        price: 0,
+        percentage: 0
+    }
 
-    cepEstimationErrorMessage = "Error";
+    products = []
 
     shipping = {
         cep: "",
@@ -21,7 +29,7 @@ export default class CartPage{
         dayEstimate: 0
     }
 
-
+    userInfo = User;
 
     constructor(elementToAttachTo=null){
         if(elementToAttachTo!==null){
@@ -29,53 +37,68 @@ export default class CartPage{
         }
 
         this.#updateProductsInCart()
-        
+
+
+        this.userInfo = users[0];
 
         this.container.classList.add("cart__container");
 
         this.container.innerHTML = /*html*/`
             ${new SectionHeader("Seu Carrinho", false, ["p-0", "mb-5"], false, false).getHtmlElement().outerHTML}
             
-            ${this.#getCartItems()}
+            ${this.#getCartItemsHtml()}
             
             <hr>
             
-            ${this.#getShippingEstimateHtml()}
-            
+            <div class="bg-white p-5">
+
+                ${this.#getAddressSectionHtml()}
+
+                <hr>
+                
+                <div class="row">
+                    <!-- ${this.#getShippingEstimateHtml()} -->
+
+                    ${this.#getResultTableHtml()}
+                    <div class="col">
+                        ${this.#getCouponInputHtml()}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    ${this.#getCartSummaryHtml()}
+                    <hr class="d-md-none my-5">
+                    <div class="col-12 col-md text-md-end align-content-md-end">
+                        <button type="button" class="button button-sm btn-orange" id="continue_cart__btn">Continuar</button>
+                        <br>
+                        <span class="d-none text-danger fw-bold font-12" id="form_error__message">Você precisa estimar o valor do frete.</span>
+                    </div>
+                </div>
+            </div>
             <hr>
 
-            ${this.#getCartSummaryHtml()}
 
-            <button type="button" class="button button-sm btn-orange" id="continue_cart__btn">Continuar</button>
-            <span class="d-none text-danger fw-bold font-12" id="form_error__message">Você precisa estimar o valor do frete.</span>
+
+           
         `;
 
         this.main.append(this.container);
-        this.#estimateShippingEventListener()
         this.#updateSummary()
+
+        // event listeners
         this.#changeAmountProductEventListeners();
+        // this.#estimateShippingEventListener()
+        this.#existingAddressesEventListeners()
         this.#continueBtnEventListener();
+        this.#couponInputEventListeners()
     }
 
-    #continueBtnEventListener(){
-        const btn = document.getElementById("continue_cart__btn");
-        const cepInput = document.getElementById("cep_estimate_input");
-        const formErrorMsg = document.getElementById("form_error__message");
 
-        btn.addEventListener("mouseup", ev =>{
-            if(this.shipping.cep.length === 0 && this.shipping.dayEstimate === 0){
-                cepInput.focus();
-                cepInput.scrollIntoView({ behavior: "smooth", block: "start", inline: "start"})
-
-                formErrorMsg.classList.remove("d-none");
-            }
-        })
-    }
-
+    // UTILITIES ---------------------------------------------------------------------------
     #updateProductsInCart(){
         this.products = []
 
-        this.cartItems = cart.getParsedCartData().filter(item => item.amount !== 0);
+        this.cartItems = cart.getCart().filter(item => item.amount !== 0);
 
         
 
@@ -90,25 +113,31 @@ export default class CartPage{
 
     }
 
-    #estimateShipping(){
+    #estimateShipping(cep=null){
         const shippingResultEl = document.getElementById("shipping_estimate__result");
         shippingResultEl.classList.add("d-none")
         
-        const value = document.getElementById("cep_estimate_input").value;
+        let value = null;
         
-        const errorElement = document.getElementById("cep_error__message");
+        if(cep !== null){
+            value=cep;
+        }else{
+            value = document.getElementById("cep_estimate_input").value;
+        }
+
+        // const errorElement = document.getElementById("cep_error__message");
         
 
         if(value === null || value.length === 0){
             console.log("error")
-            errorElement.classList.remove("d-none");
-            errorElement.innerText = "O campo não pode estar vazio";
+            // errorElement.classList.remove("d-none");
+            // errorElement.innerText = "O campo não pode estar vazio";
             return;
         }
         
         // TODO - validate CEP - "CEP inválido"
         
-        errorElement.classList.add("d-none");
+        // errorElement.classList.add("d-none");
         const randomPrice = Math.floor(Math.random()*50)+10;
         const randomDays = Math.floor(Math.random()*10)+1;
         this.shipping.price = randomPrice;
@@ -128,19 +157,12 @@ export default class CartPage{
         this.#updateSummary();
     }
 
-    #estimateShippingEventListener(){
-        const button = document.getElementById("estimate_shipping");
-
-        button.addEventListener("mouseup", ev => {
-            this.#estimateShipping()
-        })
-    }
-
-
     #updateSummary(){
+        // shipping slot
         const shippingPriceSummary = document.getElementById("shipping_price_summary");
         shippingPriceSummary.innerText = `R$${this.shipping.price}`;
 
+        // subtotal slot
         const subtotalPriceSummary = document.getElementById("subtotal_price__summary");
         let subtotal = 0;
         this.products.forEach(prod => {
@@ -151,9 +173,16 @@ export default class CartPage{
         subtotalPriceSummary.innerText = "R$"+subtotal;
         this.cartSummary.subtotal = subtotal;
 
+        // coupon slot
+         const couponDiscountSlotSummary = document.getElementById("coupon_discount_summary");
+         couponDiscountSlotSummary.innerText = `R$${this.couponApplied.price}`;
+
+        // total slot
         const totalPriceSummary = document.getElementById("total_price__summary");
-        this.cartSummary.total = this.cartSummary.subtotal + this.shipping.price;
+        this.cartSummary.total = (this.cartSummary.subtotal + this.shipping.price)-this.couponApplied.price;
         totalPriceSummary.innerText = `R$${this.cartSummary.total}`;
+
+        
     }
 
     #updateItemValues(prodId, amount, price){
@@ -166,6 +195,93 @@ export default class CartPage{
         }
 
 
+    }
+
+    #calculateDiscount(){
+        const couponInput = document.getElementById("coupon_input");
+        const coupon = couponInput.value;
+        
+        const errorMsgEl = document.getElementById("coupon_error__message");
+        errorMsgEl.classList.add("d-none");
+
+        if(coupon === null){
+            errorMsgEl.innerText = "Você precisa digitar um código antes de adicionar."
+            errorMsgEl.classList.remove("d-none");
+            return;
+        }
+
+        let percentage = 0;
+
+        const couponFound = coupons.filter(c => c.code === coupon.toUpperCase());
+
+        const couponExists = couponFound.length > 0 ? true : false;
+
+        if(!couponExists){
+            errorMsgEl.innerText = "Esse cupom não existe."
+            errorMsgEl.classList.remove("d-none");
+            return;
+        }
+
+        const noDiscountPrice = (this.shipping.price + this.cartSummary.subtotal);
+
+        percentage = couponFound[0].percentage / 100;
+        const discountPrice = noDiscountPrice * percentage;
+        
+        this.couponApplied.code = coupon;
+        this.couponApplied.percentage = couponFound[0].percentage;
+        this.couponApplied.price = discountPrice;
+
+        this.#updateSummary();
+    }
+
+
+
+    // EVENT LISTENERS ---------------------------------------------------------------------------
+    #continueBtnEventListener(){
+        const btn = document.getElementById("continue_cart__btn");
+        
+        const addressInput = document.querySelector(".existing_cards__container");
+
+        const formErrorMsg = document.getElementById("form_error__message");
+
+        btn.addEventListener("mouseup", ev =>{
+            if(this.products.length === 0){
+                formErrorMsg.classList.remove("d-none");
+                formErrorMsg.innerText = "Seu carrinho está vazio."
+                return;
+            }
+            if(this.shipping.cep.length === 0 && this.shipping.dayEstimate === 0){
+                addressInput.focus();
+                addressInput.scrollIntoView({ behavior: "smooth", block: "start", inline: "start"})
+
+                formErrorMsg.classList.remove("d-none");
+                formErrorMsg.innerText = "Você precisa selecionar um endereço de entrega."
+            }else{
+                this.#updateProductsInCart()
+
+                const storeData = {
+                    products: this.products,
+                    summary: {
+                        subtotal: this.cartSummary.subtotal,
+                        total: this.cartSummary.total,
+                        discountPrice: this.couponApplied.price,
+                    },
+                    shippingData: this.shipping,
+                    paymentMethods: null
+                }
+
+                new Order(storeData.products, storeData.summary, storeData.shippingData, storeData.paymentMethods);
+                window.location.replace("?cart&step=2")
+            }
+        })
+    }
+
+    #estimateShippingEventListener(){
+        const button = document.getElementById("estimate_shipping");
+
+        button.addEventListener("mouseup", ev => {
+            this.#estimateShipping()
+        })
     }
 
     #changeAmountProductEventListeners(){
@@ -235,25 +351,68 @@ export default class CartPage{
         })
     }
 
-    // SUB COMPONENTS HTML
+    #couponInputEventListeners(){
+        const button = document.getElementById("add_coupon__btn");
+
+        button.addEventListener("mouseup", ev => {
+            this.#calculateDiscount()
+        })
+    }
+    
+    #existingAddressesEventListeners(){
+        const cards = document.querySelectorAll(".existing_card__item");
+
+        cards.forEach(el => {
+            el.addEventListener("mouseup", ev => {
+                cards.forEach(el => el.classList.remove("selected_card"));
+
+                el.classList.add("selected_card")
+
+                const address = users[0].addresses.filter(ad => `${ad.cep}${ad.number}${ad.complement.replace(" ", "")}` === el.getAttribute("data-lf-address"))
+
+                console.log(address[0])
+
+                this.#estimateShipping(address[0].cep);
+            })
+        })
+    }
+
+
+
+
+    // ELEMENTS -------------------------------------------------------------------------------
+
     #getShippingEstimateHtml(){
         return /*html*/`
-            <div class="calc_shipping__container">
+            <div class="calc_shipping__container form_container__cart col-12 col-md-6">
                 <div>
                     <input type="text" id="cep_estimate_input" value="${this.shipping.cep}"
-                            class="form-control" placeholder="Insira seu CEP" />
+                            class="form-control text_input__cart" placeholder="Insira seu CEP" />
                     <span class="text-danger d-none" id="cep_error__message"></span>
                 </div>
-                <button class="button button-sm btn-orange" id="estimate_shipping">Calcular</button>
+                <button class="button button-sm btn-orange form_button__cart" id="estimate_shipping">Calcular</button>
                 ${this.#getResultTableHtml()}
+            </div>
+        `;
+    }
+
+    #getCouponInputHtml(){
+        return /*html*/`
+            ${new SectionHeader("Tem um cupom?", false, ["p-0"], false, true).getHtmlElement().outerHTML}
+            <div class="coupon__container form_container__cart col-12 col-md-6 mt-md-4 mt-5">
+                <div>
+                    <input type="text" placeholder="Insira o cupom"  id="coupon_input" class="form-control text_input__cart">
+                    <span class="text-danger d-none" id="coupon_error__message"></span>
+                </div>
+                <button class="button button-sm btn-orange form_button__cart" id="add_coupon__btn">Adicionar</button>
             </div>
         `;
     }
 
     #getResultTableHtml(){
         return /*html*/`
-            <div class="shipping_estimate__result d-none" id="shipping_estimate__result">
-                    <table class="table">
+            <div class="shipping_estimate__result d-none table__cart col-md-6 col-12" id="shipping_estimate__result">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th class="text-center" colspan="2">Estimativa do frete</th>
@@ -268,6 +427,7 @@ export default class CartPage{
                             <td id="shipping_days__result"></td>
                         </tr>
                     </table>
+                <hr class="my-5 d-md-none">
                 </div>
         `;
     }
@@ -288,6 +448,10 @@ export default class CartPage{
                         <td id="shipping_price_summary">R$</td>
                     </tr>
                     <tr>
+                        <th scope="row">Cupom</th>
+                        <td id="coupon_discount_summary">R$</td>
+                    </tr>
+                    <tr>
                         <th scope="row">Total</th>
                         <td id="total_price__summary">R$</td>
                     </tr>
@@ -296,10 +460,11 @@ export default class CartPage{
         `;
     }
 
-    #getCartItems(){
+    #getCartItemsHtml(){
         return /*html*/`
             <div class="cart_items__container">
-                <h3 class="position-fixed bg-white w-100 p-2 m-0 g-0">Items</h3>
+                ${new SectionHeader("Itens", true, ["position-fixed", "w-100"], false, true).getHtmlElement().outerHTML}
+                <!-- <h3 class="position-fixed bg-white w-100 p-2 m-0 g-0">Items</h3> -->
 
                 ${this.cartItems.length > 0 ? "" 
                         : /*html*/`
@@ -339,6 +504,36 @@ export default class CartPage{
                 }).join("") : ""}
             </div>
         `
+    }
+
+    #getExistingAddressesHtml(){
+        return this.userInfo.addresses.map(ad => {
+            return /*html*/`
+                <div data-lf-address="${ad.cep}${ad.number}${ad.complement.replace(" ", "")}" class="col-12 m-auto m-md-0 col-md-4 existing_card__item">
+                    <h5>${ad.data.logradouro}, ${ad.number}, ${ad.complement} - ${ad.data.bairro}, ${ad.data.localidade}, ${ad.data.uf} -
+                        ${ad.cep}</h5>
+                    <p><b>Instruções de entrega: </b>${ad.deliveryInstructions.length > 0 ? ad.deliveryInstructions : "nenhuma"}</p>
+                </div>
+            `;
+        }).join("") 
+    }
+    #getAddressSectionHtml(){
+        return /*html*/`
+            <div class="row">
+                    ${new SectionHeader("Endereço de entrega", false, ["p-0"], false, true).getHtmlElement().outerHTML}
+                    <div class="col-12">
+                        <div class="row existing_cards__container">
+                            ${this.#getExistingAddressesHtml()}
+                            ${this.#getExistingAddressesHtml()}
+                            ${this.#getExistingAddressesHtml()}
+                            ${this.#getExistingAddressesHtml()}
+                            <div class="w-fit add_address__btn__container m-auto">
+                                <a href="?profile" class="btn-orange outline btn" id="add_address__btn">Adicionar novo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        ` 
     }
 
 }
