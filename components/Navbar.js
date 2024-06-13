@@ -1,3 +1,6 @@
+import { auth } from "../index.js";
+import Auth from "../localstorage/auth.js";
+
 export default class Navbar{
     body = document.querySelector("body");
 
@@ -14,13 +17,15 @@ export default class Navbar{
             text: "Início",
             href: "/",
             id: "start",
-            collapse: true
+            collapse: true,
+            authorize: false
         },
         {
             text: "Catálogo",
             href: "?catalog",
             id: "catalog",
-            collapse: true
+            collapse: true,
+            authorize: false
         }
     ];
 
@@ -32,6 +37,7 @@ export default class Navbar{
             isIconOnly: false,
             collapse: false,
             title: "Carrinho",
+            authorize: false,
             
             a: {
                 appendText: "",
@@ -47,11 +53,27 @@ export default class Navbar{
             isIconOnly: false,
             collapse: true,
             title: "Perfil",
+            authorize: true,
             a: {
-                appendText: "Fulaninho de tal",
+                appendText: "",
                 prependText: "",
                 extraClasses: ["avatar_btn"],
                 href: "?profile",
+            }
+        },
+        {
+            icon: "bi-box-arrow-in-right",
+            id: "",
+            extraClasses: [],
+            isIconOnly: false,
+            collapse: true,
+            title: "Login",
+            authorize: false,
+            a: {
+                appendText: "Entrar",
+                prependText: "",
+                extraClasses: ["avatar_btn"],
+                href: "?login",
             }
         },
         {
@@ -61,6 +83,7 @@ export default class Navbar{
             isIconOnly: true,
             collapse: false,
             title: "",
+            authorize: false,
             a: {
                 prependText: "",
                 appendText: "",
@@ -76,8 +99,6 @@ export default class Navbar{
         <img id="nav_img" src="${this.navImage.src}" class="cursor-pointer" alt="${this.navImage.alt}">
 
         ${this.getSearchBarElement()}
-
-
 
         <ul class="navbar_list navbar_textbuttons__list" id="navbar_textbuttons__list">
             <!-- items added dynamically - based on this.textButtons -->
@@ -108,7 +129,10 @@ export default class Navbar{
         const navbar_iconbuttons_list = document.getElementById("navbar_iconbuttons_list");
         const nav_dropdown_list = document.getElementById("nav_dropdown_list");
 
-        Promise.all([this.getTextButtonElements(), this.getIconButtonElements(), this.getDropDownMenuElements()])
+        const isAuthenticated = auth.isSomeoneSignedIn();
+        Promise.all([this.getTextButtonElements(isAuthenticated),
+                         this.getIconButtonElements(isAuthenticated), 
+                         this.getDropDownMenuElements(isAuthenticated)])
         .then(values => {
             navbar_textbuttons__list.innerHTML = values[0];
             navbar_iconbuttons_list.innerHTML = values[1];
@@ -195,58 +219,70 @@ export default class Navbar{
         searchInput.setAttribute("value", value)
     }
 
-    async getTextButtonElements(){
+    async getTextButtonElements(authed){
         return new Promise(res => {
-
             let buttonHtml = "";
-            
             this.textButtons.forEach(btn => {
-                buttonHtml += `
-                    <li id="${btn.id}_btn__container" class="navbar_list__item nav_text__button">
-                        <a href="${btn.href}">${btn.text}</a>
-                    </li>
-                `
+                if(authed || authed === btn.authorize){
+                    buttonHtml += `
+                        <li id="${btn.id}_btn__container" class="navbar_list__item nav_text__button">
+                            <a href="${btn.href}">${btn.text}</a>
+                        </li>
+                    `;
+                }
             })
     
             res(buttonHtml);
         })
     };
 
-    async getIconButtonElements(){
+    async getIconButtonElements(authed){
         return new Promise( res => {
             let iconBtn = "";
 
             this.iconButtons.forEach(btn => {
-                if(btn.isIconOnly){
-                    iconBtn += `
-                        <li id="${btn.id}" class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}">
-                            <i class="bi ${btn.icon}"></i>
-                        </li>
-                    `
-                }else{
-                    iconBtn += `
-                        <li class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}" id="${btn.id}">
-                            <a href="${btn.a.href}" class="${btn.a.extraClasses.join(" ")}">
-                                ${btn.a.prependText}
+                if(authed || authed === btn.authorize){
+                    if(btn.isIconOnly){
+                        iconBtn += `
+                            <li id="${btn.id}" class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}">
                                 <i class="bi ${btn.icon}"></i>
-                                ${btn.a.appendText}
-                            </a>
-                        </li>
-                    `
+                            </li>
+                        `
+                    }else{
+                        let appendText = btn.a.appendText;
+                        if(btn.title === "Perfil" && authed){
+                            const username = auth.getUserData().personalInfo.name;
+                            appendText = username.first + " " + username.last;
+                        }
+                        if(btn.title === "Login" && authed){
+                            return;
+                        }
+                        iconBtn += `
+                            <li class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}" id="${btn.id}">
+                                <a href="${btn.a.href}" class="${btn.a.extraClasses.join(" ")}">
+                                    ${btn.a.prependText}
+                                    <i class="bi ${btn.icon}"></i>
+                                    ${appendText}
+                                </a>
+                            </li>
+                        `
+                    }
                 }
-
             })
 
             res(iconBtn);
         })
     };
 
-    async getDropDownMenuElements(){
+    async getDropDownMenuElements(authed){
         return new Promise( res => {
             let buttonHtml = "";
-
+            
             this.iconButtons.map(btn => {
-                if(btn.collapse){
+                if(btn.title === "Login" && authed){
+                    return;
+                }
+                if(btn.collapse && (authed || authed === btn.authorize)){
                         buttonHtml += `
                             <li id="${btn.id}" class="navbar_dropdown__button">
                                 <a class="${btn.a.extraClasses.join(" ")}" href="${btn.a.href}">${btn.title}</a>
@@ -256,6 +292,7 @@ export default class Navbar{
             });
 
             this.textButtons.map(btn => {
+                
                 if(btn.collapse){
                     buttonHtml += `
                         <li id="${btn.id}" class="navbar_dropdown__button">
