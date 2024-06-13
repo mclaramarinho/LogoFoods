@@ -8,10 +8,16 @@ export function getParsedStorage(storageName){
 
 export function createStorage(storageName, data){
     const exists = getStorage(storageName);
-    if(exists==="undefined"){
+
+    if(exists==="undefined" || exists === null){
         window.localStorage.setItem(storageName, JSON.stringify(data));
+    }else{
+        const prevData = getParsedStorage(storageName);
+        window.localStorage.setItem(storageName, JSON.stringify(prevData));
     }
+
 }
+
 
 export function setStorageData(storageName, data){
     window.localStorage.setItem(storageName, JSON.stringify(data));
