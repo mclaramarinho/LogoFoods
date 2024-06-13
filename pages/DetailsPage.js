@@ -1,7 +1,7 @@
 import FilteredProducts from "../data/FilteredProducts.js";
 import SectionHeader from "../components/SectionHeader.js"
 import Section from "../components/Section.js"
-import { cart } from "../index.js";
+import { cart, navbar } from "../index.js";
 export default class DetailsPage{
     params = window.location.search;
     prodId = 0;
@@ -239,6 +239,7 @@ export default class DetailsPage{
 
         addToCart.addEventListener("mouseup", ev =>{
             cart.updateCart(this.prodId, this.amountInCart);
+            navbar.updateIconButtons();
         })
     }
 

@@ -16,10 +16,10 @@ export default class LoginPage{
 
     constructor(redirectTo=null){
         this.redirectTo = redirectTo === null ? "/" : redirectTo;
+        console.log(redirectTo);
         if(auth.isSomeoneSignedIn()){
             window.location.href = this.redirectTo;
         }
-
 
         this.container.classList.add("login_page__container", "row");
         // this.container.classList.add("bg-white");

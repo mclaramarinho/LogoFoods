@@ -1,4 +1,4 @@
-import { auth } from "../index.js";
+import { auth, cart } from "../index.js";
 import Auth from "../localstorage/auth.js";
 
 export default class Navbar{
@@ -34,7 +34,7 @@ export default class Navbar{
             icon: "bi-cart2",
             id: "",
             extraClasses: [],
-            isIconOnly: false,
+            isIconOnly: true,
             collapse: false,
             title: "Carrinho",
             authorize: false,
@@ -153,6 +153,15 @@ export default class Navbar{
         
     }
     
+    async updateIconButtons(){
+        
+        const navbar_iconbuttons_list = document.getElementById("navbar_iconbuttons_list");
+        navbar_iconbuttons_list.innerHTML = "";
+        
+        this.getIconButtonElements(auth.isSomeoneSignedIn()).then(r => {navbar_iconbuttons_list.innerHTML = r;});
+        
+    }
+
     navImageClickEvent(){
         document.getElementById("nav_img").addEventListener("mouseup", ev => window.location.href = this.navImage.href)
     };
@@ -242,12 +251,25 @@ export default class Navbar{
 
             this.iconButtons.forEach(btn => {
                 if(authed || authed === btn.authorize){
+
+
                     if(btn.isIconOnly){
-                        iconBtn += `
-                            <li id="${btn.id}" class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}">
-                                <i class="bi ${btn.icon}"></i>
-                            </li>
-                        `
+                        console.log(btn.title)
+                        if(btn.title !== "Carrinho"){
+                            iconBtn += /*html*/`
+                                <li id="${btn.id}" class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}">
+                                    <i class="bi ${btn.icon}"></i>
+                                </li>
+                            `
+                        }else{
+                            const amountInCart = cart.getCart().filter(item => item.amount > 0) || [];
+                            iconBtn += /*html*/`
+                                <a href="?cart" id="${btn.id}" class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}">
+                                    <i class="bi ${btn.icon}"></i>
+                                    <span>${amountInCart.length}</span>
+                                </a>
+                            `
+                        }
                     }else{
                         let appendText = btn.a.appendText;
                         if(btn.title === "Perfil" && authed){
@@ -257,6 +279,7 @@ export default class Navbar{
                         if(btn.title === "Login" && authed){
                             return;
                         }
+
                         iconBtn += `
                             <li class="navbar_list__item navbar_icon__btn ${btn.extraClasses.join(" ")}" id="${btn.id}">
                                 <a href="${btn.a.href}" class="${btn.a.extraClasses.join(" ")}">

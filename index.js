@@ -16,7 +16,7 @@ export const auth = new Auth();
 
 // auth.login("clara@email.com", "password")
 
-new Navbar();
+export const navbar = new Navbar();
 
 new Router();
 

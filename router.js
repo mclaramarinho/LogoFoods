@@ -11,7 +11,17 @@ export default class Router{
         const params = window.location.search;
         if(params.length === 0){
             new HomePage()
-        }else if(params.includes("?catalog")){
+        }else if(params.includes("?login")){
+            let redirectTo = null;
+            if(params.includes("redirectTo")){
+                let splitParam = params.split("redirectTo=")[1];
+
+                redirectTo = splitParam.replace("@", "").replace("@", "");
+            }
+
+            new LoginPage(redirectTo);
+        }
+        else if(params.includes("?catalog")){
             new CatalogPage();
         }else if(params.includes("?details")){
             new DetailsPage();
@@ -30,17 +40,6 @@ export default class Router{
             }else{
                 new CartPage();
             }
-        }else if(params.includes("?login")){
-            let redirectTo = null;
-            if(params.includes("redirectTo")){
-                const splitParam = params.split("redirectTo=")[1];
-
-                if(splitParam.includes("&")){
-                    redirectTo = splitParam.split("&")[0];
-                }
-            }
-
-            new LoginPage(redirectTo);
         }
     }
 }

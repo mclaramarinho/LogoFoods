@@ -1,6 +1,6 @@
 import { products } from "../data/products.js";
 import { coupons } from "../data/coupons.js";
-import {cart} from "../index.js"
+import {auth, cart, navbar} from "../index.js"
 import { users, User } from "../data/users.js";
 import SectionHeader from "../components/SectionHeader.js";
 import Order from "../localstorage/order.js";
@@ -32,6 +32,12 @@ export default class CartPage{
     userInfo = User;
 
     constructor(elementToAttachTo=null){
+
+        if(!auth.isSomeoneSignedIn()){
+            const encodedRedirectTo = encodeURI("@?cart&step=1@");
+            window.location.href = "?login&redirectTo="+encodedRedirectTo;
+        }
+
         if(elementToAttachTo!==null){
             this.main = document.getElementById(elementToAttachTo);
         }
@@ -111,6 +117,7 @@ export default class CartPage{
             })
         })
 
+        navbar.updateIconButtons()
     }
 
     #estimateShipping(cep=null){
