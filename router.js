@@ -3,6 +3,7 @@ import CartPayment from "./pages/CartPayment.js";
 import CatalogPage from "./pages/CatalogPage.js";
 import DetailsPage from "./pages/DetailsPage.js";
 import HomePage from "./pages/HomePage.js";
+import LoginPage from "./pages/LoginPage.js";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage.js";
 
 export default class Router{
@@ -29,6 +30,17 @@ export default class Router{
             }else{
                 new CartPage();
             }
+        }else if(params.includes("?login")){
+            let redirectTo = null;
+            if(params.includes("redirectTo")){
+                const splitParam = params.split("redirectTo=")[1];
+
+                if(splitParam.includes("&")){
+                    redirectTo = splitParam.split("&")[0];
+                }
+            }
+
+            new LoginPage(redirectTo);
         }
     }
 }
