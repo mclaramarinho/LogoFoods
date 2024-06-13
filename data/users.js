@@ -6,9 +6,9 @@ export class User{
     paymentMethods = [];
     favoriteProducts = []
 
-    constructor(fName, lname, birthdate, cpf){
+    constructor(fName, lname, birthdate, cpf, email, password){
         try{
-            this.personalInfo = new PersonalInfo(fName, lname, birthdate, cpf);
+            this.personalInfo = new PersonalInfo(fName, lname, birthdate, cpf,email,password);
         }catch(err){
             throw err;
         }
@@ -76,19 +76,25 @@ class PersonalInfo{
     };
     birthdate =  new Date();
     cpf =  "";
+    credentials = {
+        email: "",
+        password: ""
+    }
 
-    constructor(fName, lName, birthdate, cpf){
+    constructor(fName, lName, birthdate, cpf, email, password){
         this.cpf = cpf;
-
+        console.log(email);
+        console.log(password);
         this.#validateCPF().then(r => {
             if(r){
-                this.name.first = fName.toUpperCase();
-                this.name.last = lName.toUpperCase();
-                
                 if(birthdate >= new Date()){
                     throw "Invalid BirthDate";
                 }
-                
+
+                this.name.first = fName.toUpperCase();
+                this.name.last = lName.toUpperCase();
+                this.credentials.email = email.toString();
+                this.credentials.password = password.toString().toString();
                 this.birthdate = birthdate;
             }else{
                 throw "Invalid CPF";
@@ -273,7 +279,7 @@ class PaymentMethod{
 
 
 export let users = [
-    new User("CLARA", "marinho", new Date().setFullYear(2000, 11, 10), "70185974473")
+    new User("CLARA", "marinho", new Date().setFullYear(2000, 11, 10), "70185974473", "clara@email.com", "password")
 ]
 
 users[0].addAddress("51021120", 764, "ap 201", "", false);
