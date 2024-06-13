@@ -9,9 +9,12 @@ import HomePage from "./pages/HomePage.js";
 import { User, users } from "./data/users.js";
 import Cart from "./localstorage/cart.js"
 import Router from "./router.js";
-
+import Auth from "./localstorage/auth.js";
 
 export const cart = new Cart();
+export const auth = new Auth();
+
+// auth.login("clara@email.com", "password")
 
 new Navbar();
 
