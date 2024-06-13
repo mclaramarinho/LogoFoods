@@ -46,7 +46,7 @@ export default class LoginPage{
                     <br>
                     <button class="button button-sm btn-orange" id="signin_btn__login">Entrar</button>
                     <br>
-                    <a href="?register" class="btn btn-link font-black" id="register_btn__login">Entrar</a>
+                    <a href="?register" class="mt-5 btn btn-link font-black" id="register_btn__login">Não tem uma conta? <span class="font-italic">Criar agora.</span></a>
                 </div>
             </div>
         `;

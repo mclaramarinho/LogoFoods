@@ -1,5 +1,25 @@
 .login_page__container{
     display: flex;
+    > div{
+        border-radius: 1vh;
+    }
+}
+
+.form-label[for="email_input__login"], 
+#email_input__login,
+.form-label[for="pswd_input__login"],
+#pswd_input__login,
+#register_btn__login,
+#login_error__msg{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+#signin_btn__login{
+    font-size: 1.7rem !important;
+}
+.form-label[for="email_input__login"]:focus:active, .form-label[for="pswd_input__login"]:focus:active{
+    border-color: var(--orange) !important;
+    outline: var(--orange);
 }
 
 @media (max-width: 768px){}

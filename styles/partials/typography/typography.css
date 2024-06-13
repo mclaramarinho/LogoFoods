@@ -5,3 +5,7 @@
     font-size: 10px;
     font-family: Inter, sans-serif;
 }
+
+.font-italic{
+    font-style: italic !important;
+}
