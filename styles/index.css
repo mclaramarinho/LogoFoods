@@ -12,6 +12,7 @@
 @import url("./partials/details/details.css");
 @import url("./partials/cart/cart.css");
 @import url("./partials/override/tables.css");
+@import url("./partials/login/login.css");
 
 :root{
     --yellow: #FFCD29;

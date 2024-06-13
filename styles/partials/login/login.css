@@ -1,0 +1,6 @@
+.login_page__container{
+    display: flex;
+}
+
+@media (max-width: 768px){}
+@media (min-width: 768px){}
