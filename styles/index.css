@@ -11,8 +11,8 @@
 @import url("./partials/ellipse.css");
 @import url("./partials/details/details.css");
 @import url("./partials/cart/cart.css");
-@import url("./partials/override/tables.css");
-@import url("./partials/login/login.css");
+@import url("./partials/override/override.css");
+@import url("./partials/login-register/login.css");
 
 :root{
     --yellow: #FFCD29;

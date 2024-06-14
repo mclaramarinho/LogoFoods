@@ -1,0 +1,11 @@
+.nav-link:not(.active){
+    color: var(--orange);
+    font-weight: bold;
+    background-color: var(--super-light-yellow);
+}
+
+.nav-link.active{
+    background-color: var(--orange) !important;
+    font-weight: bold;
+    color: var(--white) !important;
+}

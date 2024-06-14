@@ -1,0 +1,17 @@
+.auth_page_container{
+    display: flex;
+}
+.auth_form{
+    border-radius: 1vh;
+}
+.auth_form__label{
+    font-weight: bold;
+}
+.auth_form__label, .auth_form__input{
+    font-size: 1.2rem;
+}
+
+.main_btn__auth{
+    font-size: 1.7rem !important;
+}
+
