@@ -45,10 +45,10 @@ export default class PaymentMethodsTab{
 
                 </div>
 
-                <div class="col-12 col-md-6 mx-auto"></div>
+                <!-- <div class="col-12 col-md-6 mx-auto"></div> -->
                 
             </div>
-            <div id="alert_payment" class="mt-5 alert alert-success alert-dismissible fade" role="alert">
+            <div id="alert_payment" class="mt-5 alert alert-success alert-dismissible d-none fade" role="alert">
                 <strong>Cadastrado com sucesso!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -77,8 +77,10 @@ export default class PaymentMethodsTab{
 
             inputs().map(el => el.value = "")
             document.getElementById("alert_payment").classList.add("show");
+            document.getElementById("alert_payment").classList.remove("d-none");
             setTimeout(() => {
                 document.getElementById("alert_payment").classList.remove("show");
+                document.getElementById("alert_payment").classList.add("d-none");
             }, 5000);
 
         })

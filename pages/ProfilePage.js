@@ -45,10 +45,6 @@ export default class ProfilePage{
                 <i class="bi bi-box-arrow-left"></i> Sair
             </button>
 
-
-           
-
-            
         `;
 
         this.main.append(this.container);

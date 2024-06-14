@@ -20,7 +20,7 @@ export default class AddressesTab{
                 </div>
             </div>
 
-            <div id="alert_address" class="mt-5 alert alert-success alert-dismissible fade" role="alert">
+            <div id="alert_address" class="mt-5 alert alert-success alert-dismissible fade d-none" role="alert">
                 <strong>Cadastrado com sucesso!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -174,12 +174,12 @@ export default class AddressesTab{
             numberAddress().value = "";
             complementAddress().value = "";
 
-            const alert = document.getElementById("alert_address");
-            alert.classList.add("show"); 
+            document.getElementById("alert_address").classList.add("show");
+            document.getElementById("alert_address").classList.remove("d-none");
             setTimeout(() => {
-                alert.classList.remove("show")
+                document.getElementById("alert_address").classList.remove("show");
+                document.getElementById("alert_address").classList.add("d-none");
             }, 5000);
-            console.log("success")
         })
     }
 
