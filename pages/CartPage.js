@@ -52,8 +52,13 @@ export default class CartPage{
         this.container.innerHTML = /*html*/`
             ${new SectionHeader("Seu Carrinho", false, ["p-0", "mb-5"], false, false).getHtmlElement().outerHTML}
             
-            ${this.#getCartItemsHtml()}
-            
+                <div>
+                    <div class="row g-0">
+                        ${new SectionHeader("Itens", true, ["w-100"], false, true).getHtmlElement().outerHTML}
+                    </div>
+                    ${this.#getCartItemsHtml()}
+                </div>
+
             <hr>
             
             <div class="bg-white p-5">
@@ -470,7 +475,7 @@ export default class CartPage{
     #getCartItemsHtml(){
         return /*html*/`
             <div class="cart_items__container">
-                ${new SectionHeader("Itens", true, ["position-fixed", "w-100"], false, true).getHtmlElement().outerHTML}
+                
                 <!-- <h3 class="position-fixed bg-white w-100 p-2 m-0 g-0">Items</h3> -->
 
                 ${this.cartItems.length > 0 ? "" 
