@@ -9,7 +9,6 @@ export default function applyMask(){
             if(ev.key!=="Backspace"){
                 const newValue = maskValue(mask, value);
                 
-                console.log(newValue)
                 el.value = newValue;
                 el.setAttribute('value', newValue);
             }
@@ -33,16 +32,13 @@ export function maskValue(mask, value){
     
     const [maskArr, valueArr] = [Array.from(mask), Array.from(value)];
 
-    const specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    const specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]/;
 
     const decimalRegex = /[0-9]/;
     const lowercaseRegex = /[a-z]/;
     const uppercaseRegex = /[A-Z]/;
 
     let maskedValue = "";
-
-    console.log(valueArr)
-
 
     let prevWasSpecial = false;
 
@@ -60,7 +56,6 @@ export function maskValue(mask, value){
         }else{
             if(c === "9"){
                 const match = decimalRegex.test(valueArr[i]);
-                console.log(c + " - " + valueArr[i] + " - " + match)
                 if(match){
                     maskedValue+=valueArr[i];
                 }
