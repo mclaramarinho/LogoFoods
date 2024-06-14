@@ -1,3 +1,4 @@
+import { auth } from "./index.js";
 import CartPage from "./pages/CartPage.js";
 import CartPayment from "./pages/CartPayment.js";
 import CatalogPage from "./pages/CatalogPage.js";
@@ -29,6 +30,9 @@ export default class Router{
         }else if(params.includes("?register")){
             const redirectTo = getRedirectTo(params);
             new RegisterPage(redirectTo)
+        }else if(params.includes("?logout")){
+            auth.logout();
+            window.location.href = "/";
         }
         else if(params.includes("?catalog")){
             new CatalogPage();
