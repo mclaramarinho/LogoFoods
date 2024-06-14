@@ -539,6 +539,7 @@ export default class CartPage{
                             ${this.#getExistingAddressesHtml()}
                             ${this.#getExistingAddressesHtml()}
                             ${this.#getExistingAddressesHtml()}
+                            <br>
                             <div class="w-fit add_address__btn__container m-auto">
                                 <a href="?profile" class="btn-orange outline btn" id="add_address__btn">Adicionar novo</a>
                             </div>
