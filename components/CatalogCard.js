@@ -18,7 +18,7 @@ export default class CatalogCard{
                     ${this.#getCharacteristcsIconsHtml()}
                 </div>
                 <h3 class="">${this.product.prodTitle}</h3>
-                <h3>R$${this.product.prodPrice}</h3>
+                <h3>R$${this.product.prodPrice.toFixed(2)}</h3>
             </div>
         `;
 

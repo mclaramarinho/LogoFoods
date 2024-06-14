@@ -56,7 +56,7 @@ export default class Carousel {
             <div>
                 <h3>${product.prodTitle}</h3>
                 <p class="item_desc">${product.prodDesc}</p>
-                <p class="item_price">R$${product.prodPrice}</p>
+                <p class="item_price">R$${product.prodPrice.toFixed(2)}</p>
             </div>
         `;
     }

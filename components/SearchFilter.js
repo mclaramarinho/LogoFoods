@@ -56,8 +56,8 @@ export default class SearchFilter{
                             min="${this.priceRange.min}" max="${this.priceRange.max}"
                             value="${this.priceRange.max}"/>
                     <div class="d-flex justify-content-between search_filter__label">
-                        <p>R$${this.priceRange.min}</p>
-                        <p>R$${this.priceRange.max}</p>
+                        <p>R$${this.priceRange.min.toFixed(2)}</p>
+                        <p>R$${this.priceRange.max.toFixed(2)}</p>
                     </div>
                 </div>
                 <div class="form-group mb-2">

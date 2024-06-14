@@ -202,7 +202,7 @@ export default class CartPage{
         const amountSlot = document.querySelector(`.amount[data-lf-prodId="${prodId.toString()}"]`);
 
         if(totalPriceSlot !== null && amountSlot !== null){
-            totalPriceSlot.innerText = `R$${(amount * price * 100)/100}`
+            totalPriceSlot.innerText = `R$${Math.fround(amount * price).toFixed(2)}`
             amountSlot.innerText = `Qtd.: ${amount}`
         }
 
@@ -314,6 +314,9 @@ export default class CartPage{
 
         const getUpdatedItem = (action, prodId) => {
             const cartItemToEdit = this.cartItems.filter(item => item.id === prodId)[0];
+            if(cartItemToEdit.amount === 1 && action === "decrease"){
+                return cartItemToEdit
+            }; 
             const updatedItem = {
                 id: cartItemToEdit.id,
                 amount: action === "del" ? 0 
@@ -331,6 +334,7 @@ export default class CartPage{
 
                 const prodData = getProdData(prodId);
 
+                
                 const updatedItem = getUpdatedItem("del", prodId);
 
                 updateActions(prodId, updatedItem, prodData, true) 
@@ -358,6 +362,11 @@ export default class CartPage{
 
                 const updatedItem = getUpdatedItem("decrease", prodId);
 
+                if(updatedItem.amount === 1){
+                    el.classList.remove("cursor-pointer");
+                }else{
+                    el.classList.add("cursor-pointer");
+                }
                 updateActions(prodId, updatedItem, prodData) 
             })
         })
@@ -496,7 +505,7 @@ export default class CartPage{
 
                                 <div class="amount_price__container">
                                     <p data-lf-prodId="${product.id}" class="amount">Qtd.: ${item.amount}</p>
-                                    <p data-lf-prodId="${product.id}" class="price">R$${(product.prodPrice * item.amount * 100)/100}</p>
+                                    <p data-lf-prodId="${product.id}" class="price">R$${(product.prodPrice * item.amount).toFixed(2)}</p>
                                 </div>
 
                                 <div class="actions">
@@ -505,8 +514,8 @@ export default class CartPage{
                                     </button>
 
                                     <div class="control_amount">
-                                        <i class="bi bi-dash decrease_btn" data-lf-prodId="${product.id}"></i>
-                                        <i class="bi bi-plus increase_btn" data-lf-prodId="${product.id}"></i>
+                                        <i class="bi bi-dash decrease_btn ${item.amount > 1 ? "cursor-pointer" : ""}" data-lf-prodId="${product.id}"></i>
+                                        <i class="bi bi-plus increase_btn cursor-pointer" data-lf-prodId="${product.id}"></i>
                                     </div>
                                 </div>
                             </div>
