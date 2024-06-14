@@ -21,32 +21,37 @@ export default class LoginPage{
             window.location.href = this.redirectTo;
         }
 
-        this.container.classList.add("login_page__container", "row");
+        this.container.classList.add("auth_page__container", "row");
         // this.container.classList.add("bg-white");
 
 
         this.container.innerHTML = /*html*/`
-            <div class="bg-white col-10 col-sm-7 m-auto col-md-5 col-lg-3 py-5">
+            <div class="bg-white col-10 col-sm-7 m-auto col-md-5 col-lg-4 py-5 auth_form">
                 ${new SectionHeader("LOGIN", false, ["text-center"], false, true).getHtmlElement().outerHTML}
 
                 <div class="row">
                     <div class="col-10 col-md-8 mx-auto">
                         <div class="mb-5">
-                            <label class="form-label" for="email_input__login">Email</label>
-                            <input class="form-control" type="text" id="email_input__login">
+                            <label class="form-label auth_form__label" for="email_input__login">Email</label>
+                            <input class="form-control auth_form__input" type="email" id="email_input__login">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="pswd_input__login">Senha</label>
-                            <input class="form-control" type="password" id="pswd_input__login">
+                            <label class="form-label auth_form__label" for="pswd_input__login">Senha</label>
+                            <input class="form-control auth_form__input" type="password" id="pswd_input__login">
                         </div>
                     </div>
                 </div>
                 <div class="col-12 mt-3 text-center">
                     <span class="text-danger fw-bold d-none" id="login_error__msg">Erro</span>
                     <br>
-                    <button class="button button-sm btn-orange" id="signin_btn__login">Entrar</button>
+                    <button class="button button-sm btn-orange main_btn__auth" id="signin_btn__login">Entrar</button>
                     <br>
-                    <a href="?register" class="mt-5 btn btn-link font-black" id="register_btn__login">Não tem uma conta? <span class="font-italic">Criar agora.</span></a>
+                    <a href="?register" 
+                        class="mt-5 btn btn-link font-black font-12 text-decoration-none" 
+                        id="register_btn__login">
+                        
+                        Não tem uma conta? <span class="font-italic fw-bold text-decoration-underline">Criar agora.</span>
+                    </a>
                 </div>
             </div>
         `;
