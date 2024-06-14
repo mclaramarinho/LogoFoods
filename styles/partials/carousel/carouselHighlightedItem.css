@@ -8,7 +8,6 @@
     
     > .item_img{
         max-width: 100%;
-        object-fit: contain;
     }
 }
 .carousel_hightlight__item > div > .item_desc{
