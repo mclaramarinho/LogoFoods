@@ -5,6 +5,18 @@ import DetailsPage from "./pages/DetailsPage.js";
 import HomePage from "./pages/HomePage.js";
 import LoginPage from "./pages/LoginPage.js";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage.js";
+import ProfilePage from "./pages/ProfilePage.js";
+import RegisterPage from "./pages/RegisterPage.js";
+
+function getRedirectTo(params){
+    if(params.includes("redirectTo")){
+        let splitParam = params.split("redirectTo=")[1];
+
+        return splitParam.replace("@", "").replace("@", "");
+    }else{
+        return null;
+    }
+}
 
 export default class Router{
     constructor(){
@@ -12,14 +24,11 @@ export default class Router{
         if(params.length === 0){
             new HomePage()
         }else if(params.includes("?login")){
-            let redirectTo = null;
-            if(params.includes("redirectTo")){
-                let splitParam = params.split("redirectTo=")[1];
-
-                redirectTo = splitParam.replace("@", "").replace("@", "");
-            }
-
+            const redirectTo = getRedirectTo(params);
             new LoginPage(redirectTo);
+        }else if(params.includes("?register")){
+            const redirectTo = getRedirectTo(params);
+            new RegisterPage(redirectTo)
         }
         else if(params.includes("?catalog")){
             new CatalogPage();
@@ -40,6 +49,8 @@ export default class Router{
             }else{
                 new CartPage();
             }
+        }else if(params.includes("?profile")){
+            return new ProfilePage();
         }
     }
 }
